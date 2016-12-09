@@ -1,0 +1,15 @@
+<template name="layout">
+
+  {{> header}}
+
+  <div id="main" class="container-fluid">
+
+  	{{#if currentUser}}
+
+		{{> yield}}
+
+	{{/if}}
+	
+  </div>
+
+</template>

@@ -1,0 +1,14 @@
+{
+  "name": "puredesk",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "babel-runtime": "*",
+    "bcrypt": "^*",
+    "bluebird": "*",
+    "meteor-node-stubs": "*",
+    "sendgrid": "*"
+  }
+}

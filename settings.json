@@ -1,0 +1,7 @@
+{
+    "sendGridAPIKey": "api-key",
+    "adminUser": {
+        "email": "admin-email",
+        "password": "admin-password!"
+    }
+}

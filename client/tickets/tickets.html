@@ -1,0 +1,57 @@
+<template name="tickets">
+
+<h3>Tickets</h3>
+
+<div class='row voffset30'>
+
+  <div class='col-md-3'>
+    <button id='set-opened' class="btn btn-lg btn-block btn-success" type="button">
+    New <span class="badge">{{openedTickets}}</span>
+    </button>
+  </div>
+
+  <div class='col-md-3'>
+    <button id='set-all' class="btn btn-lg btn-block btn-primary" type="button">
+    Assigned to Me <span class="badge">{{allTickets}}</span>
+    </button>
+  </div>
+
+  <div class='col-md-3'>
+    <button id='set-active' class="btn btn-lg btn-block btn-warning" type="button">
+    Active <span class="badge">{{activeTickets}}</span>
+    </button>
+  </div>
+
+  <div class='col-md-3'>
+    <button id='set-closed' class="btn btn-lg btn-block btn-danger" type="button">
+    Closed & Spam <span class="badge">{{closedTickets}}</span>
+    </button>
+  </div>
+
+</div>
+
+
+<table class="table voffset30">
+    <thead>
+      <tr>
+      	<th>Status</th>
+        <th>Subject</th>
+        <th>Sender</th>
+        <th>Recipient</th>
+        <th>Assigned To</th>
+        <th>Date</th>
+        {{#if isAdmin}}<th>Delete</th>{{/if}}
+      </tr>
+    </thead>
+    <tbody>
+
+    {{#each tickets}}
+
+	    {{> ticket}}
+
+	  {{/each}}
+      
+    </tbody>
+  </table>
+
+</template>

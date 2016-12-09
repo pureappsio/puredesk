@@ -1,0 +1,13 @@
+<template name="ticket">
+
+<tr>
+	<td><div class='status label label-{{statusLabel status}}'>{{formatStatus status}}</div></td>
+	<td><a href='tickets/{{_id}}'>{{truncateString subject}}</a></td>
+	<td>{{sender}}</td>
+	<td>{{accountEmail}}</td>
+	<td>{{assignedName}}</td>
+	<td>{{formatDateShort date}}</td>
+	{{#if isAdmin}}<td><button class='btn btn-danger delete-ticket'>X</button></td>{{/if}}
+</tr>
+
+</template>
