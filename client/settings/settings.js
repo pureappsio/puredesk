@@ -1,5 +1,32 @@
+Template.settings.onRendered(function() {
+
+  // Init picker
+  $('#restrict-domains').selectpicker();
+
+  // Fill picker
+  Meteor.call('getDomains', function(err, domains) {
+
+    for (i = 0; i < domains.length; i++) {
+      $('#restrict-domains').append($('<option>', {
+        value: domains[i]._id,
+        text: domains[i].name
+      }));
+    }
+
+    // Refresh picker
+    $('#restrict-domains').selectpicker('refresh');
+
+  });
+
+});
+
 Template.settings.events({
 
+  'click #restrict-user': function() {
+
+    Meteor.call('restrictUser', $('#restrict-user-id :selected').val(), $('#restrict-domains').val());
+
+  },
   'click #generate-key': function () {
 
     Meteor.call('generateApiKey');
@@ -42,6 +69,24 @@ Template.settings.events({
 
 Template.settings.helpers({
 
+  transferRate: function() {
+
+    // Get date
+    var currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() - 7);
+
+    // Return
+    var assignedTickets = Tickets.find({assignedId: Meteor.user()._id, date: {$gte: currentDate}}).fetch().length;
+    var totalTickets = Tickets.find({date: {$gte: currentDate}}).fetch().length; 
+    
+    if (totalTickets != 0) {
+      return ((1 - assignedTickets/totalTickets) * 100).toFixed(0);
+    }
+    else {
+      return 0;
+    }
+
+  },
 	domains: function() {
 		return Domains.find({});
 	},

@@ -4,6 +4,17 @@ const sendgrid = require('sendgrid')(Meteor.settings.sendGridAPIKey);
 
 Meteor.methods({
 
+    restrictUser: function(userId, domains) {
+
+        Meteor.users.update(userId, {$set: {domains: domains}});
+        console.log(Meteor.users.findOne(userId));
+
+    },
+    getDomains: function() {
+
+        return Domains.find({}).fetch();
+
+    },
     createUsers: function() {
 
         // Create admin user

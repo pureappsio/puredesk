@@ -19,6 +19,9 @@
         <li><a href="{{pathFor 'tickets'}}">Tickets</a></li>
         <li><a href="{{pathFor 'send'}}">Send</a></li>
         {{/if}}
+        {{#if isAdmin}}
+        <li><a href="{{pathFor 'admin'}}">Admin</a></li>
+        {{/if}}
       </ul>
 
    	  <ul class="nav navbar-nav navbar-right login">
@@ -26,9 +29,7 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        {{#if isAdmin}}
         <li><a href="{{pathFor 'settings'}}">Settings</a></li>
-        {{/if}}
       </ul>
 
     </div><!-- /.navbar-collapse -->

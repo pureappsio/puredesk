@@ -1,0 +1,32 @@
+<template name="admin">
+    <h3>Admin</h3> {{#if isAdmin}}
+    <div class='row'>
+        <div class='col-md-3'>
+            <select id='operator' class='form-control'>
+                {{#each users}} {{> userSelect}} {{/each}}
+                <option value='all'>All Users</option>
+            </select>
+        </div>
+        <div class='col-md-2'>
+            <button id='set-operator' class='btn btn-block btn-primary'>Set Operator</button>
+        </div>
+    </div>
+    <table class="table voffset30">
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th>Subject</th>
+                <th>Sender</th>
+                <th>Recipient</th>
+                <th>Assigned To</th>
+                <th>Date</th>
+                {{#if isAdmin}}
+                <th>Delete</th>{{/if}}
+            </tr>
+        </thead>
+        <tbody>
+            {{#each tickets}} {{> ticket}} {{/each}}
+        </tbody>
+    </table>
+    {{/if}}
+</template>
