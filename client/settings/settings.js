@@ -1,107 +1,125 @@
 Template.settings.onRendered(function() {
 
-  // Init picker
-  $('#restrict-domains').selectpicker();
+    // Init picker
+    $('#restrict-domains').selectpicker();
 
-  // Fill picker
-  Meteor.call('getDomains', function(err, domains) {
+    // Fill picker
+    Meteor.call('getDomains', function(err, domains) {
 
-    for (i = 0; i < domains.length; i++) {
-      $('#restrict-domains').append($('<option>', {
-        value: domains[i]._id,
-        text: domains[i].name
-      }));
-    }
+        for (i = 0; i < domains.length; i++) {
+            $('#restrict-domains').append($('<option>', {
+                value: domains[i]._id,
+                text: domains[i].name
+            }));
+        }
 
-    // Refresh picker
-    $('#restrict-domains').selectpicker('refresh');
+        // Refresh picker
+        $('#restrict-domains').selectpicker('refresh');
 
-  });
+    });
 
 });
 
 Template.settings.events({
 
-  'click #restrict-user': function() {
+    'click #add-integration': function() {
 
-    Meteor.call('restrictUser', $('#restrict-user-id :selected').val(), $('#restrict-domains').val());
+        var accountData = {
+            type: $('#integration-type :selected').val(),
+            key: $('#integration-key').val(),
+            url: $('#integration-url').val(),
+            userId: Meteor.user()._id
+        };
+        Meteor.call('addIntegration', accountData);
 
-  },
-  'click #generate-key': function () {
+    },
 
-    Meteor.call('generateApiKey');
+    'click #send-summary': function() {
 
-  },
-  'click #set-from-name': function () {
+       Meteor.call('sendSummaryEmail');
 
-    Meteor.call('setFromName', $('#from-name').val());
+    },
+    'click #restrict-user': function() {
 
-  },
-   'click #set-role': function () {
+        Meteor.call('restrictUser', $('#restrict-user-id :selected').val(), $('#restrict-domains').val());
 
-    Meteor.call('setUserRole', $('#user-id :selected').val(), $('#user-role :selected').val());
+    },
+    'click #generate-key': function() {
 
-  },
-  'click #add-account': function() {
+        Meteor.call('generateApiKey');
 
-    account = {
-      userId: Meteor.user()._id,
-      email: $('#email').val(),
-      // from: $('#email-from').val(),
-      domainId: $('#domain-id :selected').val()
+    },
+    'click #set-from-name': function() {
+
+        Meteor.call('setFromName', $('#from-name').val());
+
+    },
+    'click #set-role': function() {
+
+        Meteor.call('setUserRole', $('#user-id :selected').val(), $('#user-role :selected').val());
+
+    },
+    'click #add-account': function() {
+
+        account = {
+            userId: Meteor.user()._id,
+            email: $('#email').val(),
+            // from: $('#email-from').val(),
+            domainId: $('#domain-id :selected').val()
+        }
+
+        Meteor.call('addEmailAccount', account);
+    },
+    'click #add-domain': function() {
+
+        // Domain
+        domain = {
+            userId: Meteor.user()._id,
+            url: $('#domain-url').val(),
+            name: $('#domain-name').val()
+        }
+
+        Meteor.call('addDomain', domain);
     }
-
-    Meteor.call('addEmailAccount', account);
-  },
-  'click #add-domain': function() {
-
-  	// Domain
-    domain = {
-      userId: Meteor.user()._id,
-      url: $('#domain-url').val(),
-      name: $('#domain-name').val()
-    }
-
-    Meteor.call('addDomain', domain);
-  }
 
 });
 
 Template.settings.helpers({
 
-  transferRate: function() {
+    transferRate: function() {
 
-    // Get date
-    var currentDate = new Date();
-    currentDate.setDate(currentDate.getDate() - 7);
+        // Get date
+        var currentDate = new Date();
+        currentDate.setDate(currentDate.getDate() - 30);
 
-    // Return
-    var assignedTickets = Tickets.find({assignedId: Meteor.user()._id, date: {$gte: currentDate}}).fetch().length;
-    var totalTickets = Tickets.find({date: {$gte: currentDate}}).fetch().length; 
-    
-    if (totalTickets != 0) {
-      return ((1 - assignedTickets/totalTickets) * 100).toFixed(0);
+        // Return
+        var assignedTickets = Tickets.find({ assignedId: Meteor.user()._id, date: { $gte: currentDate } }).fetch().length;
+        var totalTickets = Tickets.find({ date: { $gte: currentDate } }).fetch().length;
+
+        if (totalTickets != 0) {
+            return ((1 - assignedTickets / totalTickets) * 100).toFixed(0);
+        } else {
+            return 0;
+        }
+
+    },
+    domains: function() {
+        return Domains.find({});
+    },
+    users: function() {
+        return Meteor.users.find({});
+    },
+    key: function() {
+        return Meteor.user().apiKey;
+    },
+    emailAccounts: function() {
+        return EmailAccounts.find({});
+    },
+    fromName: function() {
+        return Meteor.user().fromName;
+    },
+    integrations: function() {
+        return Integrations.find({});
     }
-    else {
-      return 0;
-    }
-
-  },
-	domains: function() {
-		return Domains.find({});
-	},
-  users: function() {
-    return Meteor.users.find({});
-  },
-  key: function() {
-    return Meteor.user().apiKey;
-  },
-  emailAccounts: function() {
-    return EmailAccounts.find({});
-  },
-  fromName: function() {
-    return Meteor.user().fromName;
-  }
 
 });
-

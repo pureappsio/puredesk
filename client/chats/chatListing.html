@@ -1,0 +1,11 @@
+<template name="chatListing">
+    <div class='row'>
+        <div class='col-md-3'>{{formatDate}}</div>
+        <div class='col-md-7'><a href='/chats/{{_id}}'>{{lastMessage}}</a></div>
+        <div class='col-md-1'><span class='status label label-{{statusLabel status}}'>{{formatStatus status}}</span></div>
+        {{#if isAdmin}}
+        <div class='col-md-1'>
+            <button class='btn btn-danger delete-chat'>X</button>
+        </div>{{/if}}
+    </div>
+</template>

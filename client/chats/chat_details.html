@@ -1,0 +1,17 @@
+<template name="chatDetails">
+    <h3>Chat #{{_id}}</h3>
+    <div class='row voffset15'>
+        <div class='col-md-3'>Domain: {{domainName}}</div>
+    </div>
+    {{#each messages}} {{> chatMessage}} {{/each}}
+    <div class='row voffset30'>
+        <div class='col-md-4'></div>
+        <div class='col-md-6'>
+            <div id="message-text"></div>
+        </div>
+        <div class='col-md-2'>
+            <button id='reply-chat' class='btn-block btn btn-primary btn-lg'>Reply</button>
+            <a href='/chats' class='btn-block btn btn-default btn-lg'>Come Back</a>
+        </div>
+    </div>
+</template>

@@ -27,24 +27,62 @@ Template.registerHelper("formatDateShort", function(date) {
 
 Template.registerHelper("formatStatus", function(status) {
     if (status == 'open') {
-        return 'OPEN' };
+        return 'OPEN'
+    };
+     if (status == 'live') {
+        return 'LIVE'
+    };
     if (status == 'pending') {
-        return 'PENDING' };
+        return 'PENDING'
+    };
     if (status == 'closed') {
-        return 'CLOSED' };
+        return 'CLOSED'
+    };
     if (status == 'spam') {
-        return 'SPAM' };
+        return 'SPAM'
+    };
 });
 
 Template.registerHelper("statusLabel", function(status) {
     if (status == 'open') {
-        return 'success' };
+        return 'success'
+    };
+    if (status == 'live') {
+        return 'success'
+    };
     if (status == 'pending') {
-        return 'info' };
+        return 'info'
+    };
     if (status == 'closed') {
-        return 'default' };
+        return 'default'
+    };
     if (status == 'spam') {
-        return 'danger' };
+        return 'danger'
+    };
+});
+
+Template.registerHelper("formatType", function(type) {
+    if (type == 'unknown') {
+        return 'UNKNOWN';
+    } else if (type == 'lead') {
+        return 'LEAD';
+    } else if (type == 'customer') {
+        return 'CUSTOMER';
+    } else {
+        return 'UNKNOWN';
+    }
+});
+
+Template.registerHelper("typeLabel", function(type) {
+    if (type == 'unknown') {
+        return 'primary';
+    } else if (type == 'lead') {
+        return 'warning';
+    } else if (type == 'customer') {
+        return 'danger';
+    } else {
+        return 'primary';
+    }
 });
 
 Template.registerHelper("langEN", function() {

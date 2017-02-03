@@ -6,6 +6,12 @@
             {{transferRate}}%
         </div>
     </div>
+    <h3>Daily Summary</h3>
+    <div class='row'>
+        <div class='col-md-4'>
+            <button id='send-summary' class='btn btn-block btn-primary'>Send Daily Summary</button>
+        </div>
+    </div>
     <h3>Add New Domain</h3>
     <div class='row'>
         <div class='col-md-4'>
@@ -92,5 +98,26 @@
             <span id='api-key'>{{key}}</span>
         </div>
     </div>
-    {{/if}}
+    <h3>Add Integration</h3>
+    <div class='row'>
+        <div class='col-md-1'>Type: </div>
+        <div class='col-md-2'>
+            <select class='form-control' id='integration-type'>
+                <option value='purecart'>PureCart</option>
+                <option value='puremail'>PureMail</option>
+            </select>
+        </div>
+        <div class='col-md-1'>URL: </div>
+        <div class='col-md-3'>
+            <input class='form-control' id='integration-url'>
+        </div>
+        <div class='col-md-1'>Key: </div>
+        <div class='col-md-2'>
+            <input class='form-control' id='integration-key'>
+        </div>
+        <div class='col-md-2'>
+            <button id='add-integration' class='btn btn-block btn-primary'>Link</button>
+        </div>
+    </div>
+    <h3>Integrations</h3> {{#each integrations}} {{> integration}} {{/each}} {{/if}}
 </template>
