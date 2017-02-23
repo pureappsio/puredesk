@@ -130,9 +130,12 @@ Meteor.methods({
 
             console.log('User already created');
             var userId = Meteor.users.findOne({ "emails.0.address": data.email })._id;
+            console.log(userId);
 
             // Change role
             Meteor.users.update(userId, { $set: { role: data.role } });
+
+            console.log(Meteor.users.findOne({ "emails.0.address": data.email }))
 
         } else {
 

@@ -16,6 +16,15 @@ Meteor.methods({
         // Insert
         Integrations.remove(data);
 
-    }
+    },
+    linkIntegration(integrationId, domainId) {
 
+        console.log(integrationId);
+
+        Integrations.update(integrationId, { $set: { domainId: domainId } });
+
+        console.log( Integrations.findOne(integrationId));
+
+
+    }
 });

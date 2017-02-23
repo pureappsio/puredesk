@@ -22,6 +22,14 @@ Template.settings.onRendered(function() {
 
 Template.settings.events({
 
+    'click #link-integration': function() {
+
+        var integrationId = $('#integration-id :selected').val();
+        var domainId = $('#domain-id :selected').val();
+
+        Meteor.call('linkIntegration', integrationId, domainId);
+
+    },
     'click #add-integration': function() {
 
         var accountData = {

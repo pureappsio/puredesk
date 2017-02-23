@@ -99,6 +99,7 @@ Template.registerHelper("langEN", function() {
 
 Template.registerHelper("isAdmin", function() {
     if (Meteor.user()) {
+        console.log(Meteor.user())
         if (Meteor.user().role == 'admin') {
             return true;
         } else {

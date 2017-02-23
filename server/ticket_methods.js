@@ -187,7 +187,27 @@ Meteor.methods({
         }
 
     },
+    getProducts: function(domainId) {
 
+        // Get domain data
+        var domain = Domains.findOne(domainId);
+
+        // Get products
+        if (Integrations.findOne({ type: 'purepress', url: domain.url })) {
+
+            // Get integration
+            var integration = Integrations.findOne({ type: 'purepress', url: domain.url});
+            var answer = HTTP.get('https://' + integration.url + '/api/products?key=' + integration.key);
+
+            console.log(answer.data.products);
+
+            return answer.data.products;
+
+        } else {
+            return [];
+        }
+
+    },
     getTicketType: function(customerEmail) {
 
         // Unknown by default
