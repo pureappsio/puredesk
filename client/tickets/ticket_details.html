@@ -1,17 +1,21 @@
 <template name="ticketDetails">
-    <h3>Ticket #{{_id}}</h3>
-    <div class='row voffset15'>
-        <div class='col-md-3'>Topic: {{subject}}</div>
-        <div class='col-md-3'>Sender: {{sender}}</div>
-        <div class='col-md-4'>Account: {{accountName}}</div>
-        <div class='col-md-1 col-center'>
-            <div class='status label label-{{typeLabel type}}'>{{formatType type}}</div>
-        </div>
-        <div class='col-md-1 col-center'>
-            <div class='status label label-{{statusLabel status}}'>{{formatStatus status}}</div>
+    <div class='row voffset15 tickets-desktop'>
+        <div class='col-md-6'>
+            <h3>Ticket #{{_id}}</h3>
         </div>
     </div>
     <div class='row voffset15'>
+        <div class='col-md-3 col-title'>Topic: {{subject}}</div>
+        <div class='col-md-3'>Sender: {{sender}}</div>
+        <div class='col-md-4'>Account: {{accountName}}</div>
+        <div class='col-md-1 col-center tickets-desktop'>
+            <div class='status badge badge-{{typeLabel type}}'>{{formatType type}}</div>
+        </div>
+        <div class='col-md-1 col-center tickets-desktop'>
+            <div class='status badge badge-{{statusLabel status}}'>{{formatStatus status}}</div>
+        </div>
+    </div>
+    <div class='row voffset15 tickets-desktop'>
         <div class='col-md-3'>Assigned to: {{assignedName}}</div>
         <div class='col-md-1'>Assign to:</div>
         <div class='col-md-2'>
@@ -28,15 +32,34 @@
         <div class='col-md-8'>
             <div id="email-text"></div>
         </div>
-        <div class='col-md-4'>
+        <div class='col-md-4 tickets-desktop'>
             <button id='mark-closed' class='btn-block btn btn-warning btn-lg'>Close Ticket</button>
             <button id='mark-spam' class='btn-block btn btn-danger btn-lg'>Mark as Spam</button>
             <button id='reply-ticket' class='btn-block btn btn-primary btn-lg'>Reply</button>
-            <a href='/tickets' class='btn-block btn btn-default btn-lg'>Come Back</a>
+            <div class='row tickets-desktop' id='template-selector'>
+                <div class="col-md-9">
+                    <select class='form-control' id='template-select'>{{#each templates}}{{> templateSelect}}{{/each}}</select>
+                </div>
+                <div class="col-md-3">
+                    <button id='load-template' class='btn-block btn btn-primary'>Load</button>
+                </div>
+            </div>
+            <a href='/tickets' class='btn-block btn btn-secondary btn-lg'>Come Back</a>
+        </div>
+    </div>
+    <div class='row voffset15 vbottom15 tickets-mobile'>
+        <div class='col-6'>
+            <button id='reply-ticket-mobile' class='btn-block btn btn-primary btn-lg'>Reply</button>
+        </div>
+        <div class='col-6'>
+            <a href='/tickets' class='btn-block btn btn-secondary btn-lg'>Come Back</a>
         </div>
     </div>
     {{#if products}}
-    <h3>Products to Recommend</h3>
-    {{#each products}} {{> productData}} {{/each}}
-    {{/if}}
+    <div class='row voffset15 tickets-desktop'>
+        <div class='col-md-6'>
+            <h3>Products to Recommend</h3>
+        </div>
+    </div>
+    {{#each products}} {{> productData}} {{/each}} {{/if}}
 </template>

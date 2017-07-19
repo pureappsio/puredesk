@@ -6,9 +6,16 @@ Meteor.methods({
 
     createTicket: function(data, user) {
 
+        console.log(data);
+        console.log('Recipient: ' + data.recipient);
+
         // Find accounts
         var emailAccount = EmailAccounts.findOne({ email: data.recipient });
+        console.log(emailAccount);
+
         var domain = Domains.findOne(emailAccount.domainId);
+
+        var now = new Date();
 
         // Check for RE in subject
         data.subject = (data.subject).replace("Re: ", "");
@@ -21,6 +28,7 @@ Meteor.methods({
 
             // Update
             Tickets.update(ticket._id, { $set: { status: 'open' } });
+            Tickets.update(ticket._id, { $set: { lastReplyDate: now } });
 
             // Add new message
             var message = {
@@ -43,7 +51,16 @@ Meteor.methods({
                 subject: data.subject,
                 userId: user._id,
                 date: new Date(),
-                status: 'open'
+                status: 'open',
+                lastReplyDate: new Date()
+
+            }
+
+            // If rules for this account, assign to user
+            if (Rules.findOne({ emailId: emailAccount._id })) {
+
+                var rule = Rules.findOne({ emailId: emailAccount._id });
+                ticket.assignedId = rule.forwardId;
 
             }
 
@@ -196,7 +213,7 @@ Meteor.methods({
         if (Integrations.findOne({ type: 'purepress', url: domain.url })) {
 
             // Get integration
-            var integration = Integrations.findOne({ type: 'purepress', url: domain.url});
+            var integration = Integrations.findOne({ type: 'purepress', url: domain.url });
             var answer = HTTP.get('https://' + integration.url + '/api/products?key=' + integration.key);
 
             console.log(answer.data.products);

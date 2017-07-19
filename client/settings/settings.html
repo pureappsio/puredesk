@@ -1,18 +1,36 @@
 <template name="settings">
     {{#if isAdmin}}
-    <h3>Processing Rate</h3>
+    <div class='row voffset15'>
+        <div class='col-md-4'>
+            <h3>Processing Rate</h3>
+        </div>
+       <!--   <div class='col-md-4'>
+            <h3>Average Response Time</h3>
+        </div> -->
+    </div>
     <div class='row'>
         <div class='col-md-4'>
             {{transferRate}}%
         </div>
+     <!--    <div class='col-md-4'>
+            {{responseTime}}
+        </div>
+ -->    </div>
+    <div class='row voffset15'>
+        <div class='col-md-4'>
+            <h3>Daily Summary</h3>
+        </div>
     </div>
-    <h3>Daily Summary</h3>
     <div class='row'>
         <div class='col-md-4'>
             <button id='send-summary' class='btn btn-block btn-primary'>Send Daily Summary</button>
         </div>
     </div>
-    <h3>Add New Domain</h3>
+    <div class='row voffset15'>
+        <div class='col-md-4'>
+            <h3>Add New Domain</h3>
+        </div>
+    </div>
     <div class='row'>
         <div class='col-md-4'>
             <input id='domain-name' type='text' class='form-control' placeholder="Domain Name...">
@@ -24,15 +42,21 @@
             <button id='add-domain' class='btn btn-block btn-primary'>Add New Domain</button>
         </div>
     </div>
-    <h3>Domains</h3> {{#each domains}} {{> domain}} {{/each}}
-    <h3>Add Account</h3>
+    <div class='row voffset15'>
+        <div class='col-md-4'>
+            <h3>Domains</h3>
+        </div>
+    </div>
+    {{#each domains}} {{> domain}} {{/each}}
+    <div class='row voffset15'>
+        <div class='col-md-4'>
+            <h3>Add Account</h3>
+        </div>
+    </div>
     <div class='row'>
         <div class='col-md-3'>
             <input id='email' type='text' class='form-control' placeholder="Email...">
         </div>
-        <!--   <div class='col-md-3'>
-    <input id='email-from' type='text' class='form-control' placeholder="Email from name...">
-  </div> -->
         <div class='col-md-3'>
             <select id='domain-id' type='text' class='form-control'>
                 {{#each domains}} {{> domainSelect}} {{/each}}
@@ -42,8 +66,17 @@
             <button id='add-account' class='btn btn-block btn-primary'>Add Account</button>
         </div>
     </div>
-    <h3>Email Accounts</h3> {{#each emailAccounts}} {{> emailAccount}} {{/each}} {{/if}}
-    <h3>Set Your Username</h3>
+    <div class='row voffset15'>
+        <div class='col-md-4'>
+            <h3>Email Accounts</h3>
+        </div>
+    </div>
+    {{#each emailAccounts}} {{> emailAccount}} {{/each}} {{/if}}
+    <div class='row voffset15'>
+        <div class='col-md-4'>
+            <h3>Set Your Username</h3>
+        </div>
+    </div>
     <div class='row'>
         <div class='col-md-4'>
             <input id='from-name' type='text' class='form-control' placeholder="Your user name...">
@@ -56,8 +89,17 @@
         </div>
     </div>
     {{#if isAdmin}}
-    <h3>Users</h3> {{#each users}} {{> userDetails}} {{/each}}
-    <h3>Assign Role</h3>
+    <div class='row voffset15'>
+        <div class='col-md-4'>
+            <h3>Users</h3>
+        </div>
+    </div>
+    {{#each users}} {{> userDetails}} {{/each}}
+    <div class='row voffset15'>
+        <div class='col-md-4'>
+            <h3>Assign Role</h3>
+        </div>
+    </div>
     <div class='row'>
         <div class='col-md-2'>
             <select id='user-id' class='form-control'>
@@ -74,7 +116,32 @@
             <button id='set-role' class='btn btn-block btn-primary'>Set Role</button>
         </div>
     </div>
-    <h3>Restrict Operator to Domains</h3>
+    <div class='row voffset15'>
+        <div class='col-md-4'>
+            <h3>Forwarding Rules</h3>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-md-3'>
+            <select class='form-control' id='forward-email'>
+                 {{#each emailAccounts}} {{> emailAccountSelect}} {{/each}}
+            </select>
+        </div>
+        <div class='col-md-3'>
+            <select id='forward-user' class='form-control'>
+                {{#each users}} {{> userSelect}} {{/each}}
+            </select>
+        </div>
+        <div class='col-md-3'>
+            <button id='add-rule' class='btn btn-block btn-primary'>Add Forwarding Rule</button>
+        </div>
+    </div>
+    {{#each rules}} {{> rule}} {{/each}}
+    <div class='row voffset15'>
+        <div class='col-md-4'>
+            <h3>Restrict Operator to Domains</h3>
+        </div>
+    </div>
     <div class='row'>
         <div class='col-md-3'>
             <select id='restrict-user-id' class='form-control'>
@@ -89,7 +156,11 @@
             <button id='restrict-user' class='btn btn-block btn-primary'>Restrict Operator</button>
         </div>
     </div>
-    <h3>API Key</h3>
+    <div class='row voffset15'>
+        <div class='col-md-4'>
+            <h3>API Key</h3>
+        </div>
+    </div>
     <div class='row'>
         <div class='col-md-3'>
             <button id='generate-key' class='btn btn-block btn-primary'>Generate API Key</button>
@@ -98,7 +169,11 @@
             <span id='api-key'>{{key}}</span>
         </div>
     </div>
-    <h3>Add Integration</h3>
+    <div class='row voffset15'>
+        <div class='col-md-4'>
+            <h3>Add Integration</h3>
+        </div>
+    </div>
     <div class='row'>
         <div class='col-md-1'>Type: </div>
         <div class='col-md-2'>
@@ -120,7 +195,11 @@
             <button id='add-integration' class='btn btn-block btn-primary'>Link</button>
         </div>
     </div>
-    <h3>Integrations</h3> {{#each integrations}} {{> integration}} {{/each}} 
+    <div class='row voffset15'>
+        <div class='col-md-4'>
+            <h3>Integrations</h3>
+        </div>
+    </div> {{#each integrations}} {{> integration}} {{/each}}
     <!-- <h3>Link Integration</h3>
     <div class='row'>
         <div class='col-md-3'>

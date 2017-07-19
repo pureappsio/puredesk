@@ -1,0 +1,32 @@
+<template name="templates">
+    {{#if isOperator}}
+    <div class='row voffset15'>
+        <div class='col-md-3'>
+            <h3>Templates</h3>
+        </div>
+    </div>
+    <div class='row voffset15'>
+        <div class='col-md-3'>
+            <label>Domain</label>
+            <select id='brand' class="form-control">
+                {{#each domains}} {{> domainSelect}} {{/each}}
+            </select>
+        </div>
+        <div class='col-md-6'>
+            <label>Title</label>
+            <input id='title' type="text" class="form-control">
+        </div>
+    </div>
+    <div class='row voffset15'>
+        <div class='col-md-9'>
+            <label>Template</label>
+            <div id="template-text"></div>
+        </div>
+    </div>
+    <div class='row voffset15'>
+        <div class='col-md-9'>
+            <button id='add-template' class="btn btn-block btn-primary">Add Template</button>
+        </div>
+    </div>
+    {{#each templates}} {{> template}} {{/each}} {{/if}}
+</template>

@@ -22,17 +22,39 @@ Template.ticketDetails.helpers({
     },
     products: function() {
         return Session.get('products');
+    },
+    templates: function() {
+        return Templates.find({});
     }
 
 });
 
 Template.ticketDetails.events({
 
+    'click #load-template': function() {
+
+        // Get template value
+        Meteor.call('loadTemplate', $('#template-select :selected').val(), function(err, data) {
+            CKEDITOR.instances['email-text'].setData(data);
+        });
+
+    },
     'click #reply-ticket': function() {
 
         // Reply
-        messageBody = $('#email-text').summernote('code');
-        Meteor.call('replyTicket', messageBody, this._id);
+        messageBody = CKEDITOR.instances['email-text'].getData();
+        Meteor.call('replyTicket', messageBody, this._id, function(err, data) {
+            CKEDITOR.instances['email-text'].setData('');
+        });
+
+    },
+    'click #reply-ticket-mobile': function() {
+
+        // Reply
+        messageBody = CKEDITOR.instances['email-text'].getData();
+        Meteor.call('replyTicket', messageBody, this._id, function(err, data) {
+            CKEDITOR.instances['email-text'].setData('');
+        });
 
     },
     'click #mark-closed': function() {
@@ -59,9 +81,24 @@ Template.ticketDetails.events({
 Template.ticketDetails.onRendered(function() {
 
     // Message
-    $('#email-text').summernote({
-        height: 150
+    // $('#email-text').summernote({
+    //     height: 150
+    // });
+
+    // Init
+    CKEDITOR.replace('email-text', {
+        extraPlugins: 'autolink',
+        removePlugins: 'toolbar'
     });
+
+    if (Meteor.user()) {
+
+        if (Meteor.user().fromName) {
+            message = '<p></p><p>Cheers, </br>' + Meteor.user().fromName + '</p>';
+            CKEDITOR.instances['email-text'].setData(message);
+        }
+
+    }
 
     if (this.data) {
         Meteor.call('getProducts', this.data.domainId, function(err, products) {

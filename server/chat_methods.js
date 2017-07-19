@@ -1,5 +1,35 @@
 Meteor.methods({
 
+    handleNewConnection: function(connection) {
+
+        console.log(connection);
+
+        if (Connections.findOne({ socketId: connection.socketId })) {
+
+            // Update
+            Connections.update({ socketId: connection.socketId }, {
+                $set: {
+                    referer: connection.referer,
+                    time: connection.time
+                }
+            });
+
+        } else {
+
+            // Insert
+            Connections.insert(connection);
+
+        }
+
+    },
+    handleDisconnection: function(connection) {
+
+        console.log('Disconnected: ')
+        console.log(connection);
+
+        Connections.remove({ socketId: connection.socketId });
+
+    },
     replyChat: function(messageBody, chatId) {
 
         // Get email account

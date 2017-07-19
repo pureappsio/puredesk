@@ -1,62 +1,63 @@
 <template name="tickets">
-
-<h3>Tickets</h3>
-
-{{#if isOperator}}
-
-<div class='row voffset30'>
-
-  <div class='col-md-3'>
-    <button id='set-opened' class="btn btn-lg btn-block btn-success" type="button">
-    New <span class="badge">{{openedTickets}}</span>
-    </button>
-  </div>
-
-  <div class='col-md-3'>
-    <button id='set-all' class="btn btn-lg btn-block btn-primary" type="button">
-    Assigned to Me <span class="badge">{{allTickets}}</span>
-    </button>
-  </div>
-
-  <div class='col-md-3'>
-    <button id='set-active' class="btn btn-lg btn-block btn-warning" type="button">
-    Active <span class="badge">{{activeTickets}}</span>
-    </button>
-  </div>
-
-  <div class='col-md-3'>
-    <button id='set-closed' class="btn btn-lg btn-block btn-danger" type="button">
-    Closed & Spam <span class="badge">{{closedTickets}}</span>
-    </button>
-  </div>
-
-</div>
-
-
-<table class="table voffset30">
-    <thead>
-      <tr>
-      	<th>Status</th>
-        <th>Type</th>
-        <th>Subject</th>
-        <th>Sender</th>
-        <th>Recipient</th>
-        <th>Assigned To</th>
-        <th>Date</th>
-        {{#if isAdmin}}<th>Delete</th>{{/if}}
-      </tr>
-    </thead>
-    <tbody>
-
-    {{#each tickets}}
-
-	    {{> ticket}}
-
-	  {{/each}}
-      
-    </tbody>
-  </table>
-
-{{/if}}
-
+    <div class='row voffset15'>
+        <div class='col-md-3'>
+            <h3>Tickets</h3>
+        </div>
+    </div>
+    {{#if isOperator}}
+    <div class='row voffset30'>
+        <div class='col-md-3'>
+            <button id='set-opened' class="btn btn-lg btn-block btn-success" type="button">
+                New <span class="badge badge-pill badge-default badge-tickets">{{openedTickets}}</span>
+            </button>
+        </div>
+        <div class='col-md-3'>
+            <button id='set-all' class="btn btn-lg btn-block btn-primary" type="button">
+                Assigned to Me <span class="badge badge-pill badge-default badge-tickets">{{allTickets}}</span>
+            </button>
+        </div>
+        <div class='col-md-3'>
+            <button id='set-active' class="btn btn-lg btn-block btn-warning" type="button">
+                Active <span class="badge badge-pill badge-default badge-tickets">{{activeTickets}}</span>
+            </button>
+        </div>
+        <div class='col-md-3'>
+            <button id='set-closed' class="btn btn-lg btn-block btn-danger" type="button">
+                Closed & Spam <span class="badge badge-pill badge-default badge-tickets">{{closedTickets}}</span>
+            </button>
+        </div>
+    </div>
+    <div class='tickets-desktop voffset30'>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Type</th>
+                    <th>Subject</th>
+                    <th>Sender</th>
+                    <th>Recipient</th>
+                    <th>Assigned To</th>
+                    <th>Last Action</th>
+                    {{#if isAdmin}}
+                    <th>Delete</th>{{/if}}
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <div class="row col-title">
+            <div class='col-md-1'>Status</div>
+            <div class='col-md-1'>Type</div>
+            <div class='col-md-3'>Subject</div>
+            <div class='col-md-2'>Sender</div>
+            <div class='col-md-2'>Recipient</div>
+            <div class='col-md-2'>Assigned To</div>
+            <div class='col-md-1'>Last Action</div>
+        </div> -->
+                {{#each tickets}} {{> ticket}} {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <div class='tickets-mobile voffset30'>
+        {{#each tickets}} {{> ticket}} {{/each}}
+    </div>
+    {{/if}}
 </template>

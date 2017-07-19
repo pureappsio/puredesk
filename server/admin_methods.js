@@ -4,6 +4,12 @@ const sendgrid = require('sendgrid')(Meteor.settings.sendGridAPIKey);
 
 Meteor.methods({
 
+    addRule: function(rule) {
+
+        // Add
+        Rules.insert(rule);
+
+    },
     validateApiKey: function(user, key) {
 
         if (user.apiKey == key) {

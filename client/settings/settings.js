@@ -44,7 +44,7 @@ Template.settings.events({
 
     'click #send-summary': function() {
 
-       Meteor.call('sendSummaryEmail');
+        Meteor.call('sendSummaryEmail');
 
     },
     'click #restrict-user': function() {
@@ -88,12 +88,63 @@ Template.settings.events({
         }
 
         Meteor.call('addDomain', domain);
+    },
+    'click #add-rule': function() {
+
+        rule = {
+            userId: Meteor.user()._id,
+            emailId: $('#forward-email').val(),
+            forwardId: $('#forward-user').val()
+        }
+
+        Meteor.call('addRule', rule);
     }
 
 });
 
 Template.settings.helpers({
 
+    // responseTime: function() {
+
+    //     // Limit date
+    //     var date = new Date();
+    //     var limitDate = new Date(date.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+    //     // Get all tickets
+    //     var tickets = Tickets.find({ date: { $gte: limitDate } }).fetch();
+    //     var intervals = [];
+
+    //     for (i in tickets) {
+
+    //         // Get all messages
+    //         var messages = Messages.find({ ticketId: tickets[i]._id }, { sort: { date: 1 } }).fetch();
+
+    //         for (m in messages) {
+
+    //             if (messages[m + 1]) {
+
+    //                 // if (messages[m + 1].senderId && messages[m].sender) {
+    //                     var interval = (messages[m + 1].date).getTime() - (messages[m].date).getTime();
+    //                     intervals.push(interval);
+    //                 // }
+
+    //             }
+    //         }
+
+    //     }
+
+    //     console.log(intervals);
+
+    //     // Calculate average
+    //     average = 0;
+    //     for (i in intervals) {
+    //         average += intervals[i];
+    //     }
+    //     average = average / intervals.length;
+
+    //     return (average / 1000 / 60 / 60).toFixed(0) + ' hours';
+
+    // },
     transferRate: function() {
 
         // Get date
@@ -113,6 +164,9 @@ Template.settings.helpers({
     },
     domains: function() {
         return Domains.find({});
+    },
+    rules: function() {
+        return Rules.find({});
     },
     users: function() {
         return Meteor.users.find({});
